@@ -1,0 +1,56 @@
+#!perl
+# mengwong 20200619
+
+# USAGE: git-scrape username    2>&1 | tee username.org
+
+# download all of username's repositories' clone_urls
+# keep asking for more pages until we get 0 back
+# then clone all the actual repositories
+# the output logging format is org-friendly: open it in emacs for better hierarchy
+# see also https://github.com/mengwong/git-scrape
+# 
+# requires npm i -g json
+
+my $username = shift;
+
+my @jsons;
+my $n = 1;
+my $nobreak = 0;
+
+print "* what repositories does $username have?\n";
+
+do {
+  my $torun = "curl -s 'https://api.github.com/users/$username/repos?page=$n' | json -a clone_url";
+  my @urls = qx($torun);
+  print "page $n returned " . @urls . " urls\n";
+  push (@jsons, @urls);
+  $nobreak = @urls;
+  $n++;
+}
+while ($nobreak);
+
+print "** $username has " . @jsons . " repositories\n";
+print @jsons;
+
+mkdir $username;
+chdir $username;
+
+open (REPOS, ">repos.txt");
+print REPOS @jsons;
+close REPOS;
+
+print "* cloning " . @jsons . " repositories\n";
+
+for my $repo (@jsons) {
+  chomp $repo;
+  print "** $repo\n";
+  system("git clone $repo");
+}
+
+print "\n* done!\nin future,\n\n    cd $username\n    git-multi-repos\n"
+    
+
+
+
+   
+
