@@ -40,6 +40,8 @@ $ cd    gitusername
 $ git-scrape 2>&1 | tee gitusername.org
 #+end_src
 
+Note: the ~.org~ at the end is what tells Emacs to use [[https://orgmode.org/][org-mode]]. You may need to ~M-x org-mode~.
+
 ** It turns this kind of noise ...
 
 #+BEGIN_EXAMPLE
@@ -98,4 +100,4 @@ with a hierarchy which you can TAB to fold/unfold
 
 [[./emacs.screenshot.png]]
 
-You can watch the logs grow in realtime if you turn on ~M-x auto-revert-mode` and move your cursor to the end of the file.
+You can watch the logs grow in realtime if you turn on ~M-x auto-revert-mode~ and move your cursor to the end of the file.
