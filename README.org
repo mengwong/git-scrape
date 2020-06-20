@@ -1,20 +1,20 @@
 #+TITLE: HOWTO Log To Org-Mode
 
-Programmers who like to sprinkle /printf/ statements throughout their programs should judiciously prefix output lines with hierarchical asterisks; this makes your STDERR ingestible by emacs org-mode and your logs much more accessible.
+If you sprinkle /printf/ statements throughout your scripts, prefix output lines with asterisks; this makes your logs structured and suitable for opening in emacs org-mode.
 
 ** Audience
 
 (Systems) programmers who use Emacs and Org-Mode.
 
-** Background
+** Example
 
-I found myself writing a simple Github scraper in Perl.
+I wrote a simple Github scraper in Perl.
 
 Given a username, the script first queries the Github API for the URLs of their repositories.
 
-Then the script runs ~git clone~ for each repository.
+Then the script runs ~git clone~ for each repository, or ~git pull~ if the repository already exists.
 
-If you're the type of programmer who has a copious "printf debugging" style, you know that this is the sort of script that could produce reams of logging output.
+If you use "printf debugging" style, you can guess that this is the sort of script that could produce reams of logging output.
 
 ** How to manage the mess of logs?
 
@@ -31,8 +31,66 @@ It's magic.
 ** Usage
 
 #+begin_src text
-$ git-clone username 2>&1 | tee username.org
+$ mkdir gitusername
+$ cd    gitusername
+$ git-scrape 2>&1 | tee gitusername.org
 #+end_src
+
+** It turns this kind of noise
+
+#+BEGIN_EXAMPLE
+20200620-14:36:49 mengwong@venice4:~/src% mkdir jhpyle
+20200620-14:36:51 mengwong@venice4:~/src% cd jhpyle
+20200620-14:36:53 mengwong@venice4:~/src/jhpyle% git-scrape 2>&1 | tee log.org
+,* git-scrape jhpyle
+already in jhpyle/
+,* what repositories does jhpyle have?
+page 1 returned 29 urls
+page 2 returned 0 urls
+,** jhpyle has 29 repositories
+- https://github.com/jhpyle/charts.git
+- https://github.com/jhpyle/docacon-dot-com.git
+- https://github.com/jhpyle/docassemble.git
+- https://github.com/jhpyle/docassemble-appeal.git
+- https://github.com/jhpyle/docassemble-empty.git
+- https://github.com/jhpyle/docassemble-income.git
+- https://github.com/jhpyle/docassemble-LSLettersEmails.git
+- https://github.com/jhpyle/docassemble-monitor.git
+- https://github.com/jhpyle/docassemble-MotionTutorial.git
+- https://github.com/jhpyle/docassemble-os.git
+- https://github.com/jhpyle/docassemble-profileme.git
+- https://github.com/jhpyle/docassemble-rpi.git
+- https://github.com/jhpyle/docassemble-spot.git
+- https://github.com/jhpyle/docassemble-ssareportchangesletter.git
+- https://github.com/jhpyle/docassemble-suffolk.git
+- https://github.com/jhpyle/docassemble-testpackage.git
+- https://github.com/jhpyle/docassemble-testproj.git
+- https://github.com/jhpyle/flask-kvsession.git
+- https://github.com/jhpyle/lawyersongithub.git
+- https://github.com/jhpyle/lsreportapi.git
+- https://github.com/jhpyle/lstexttwilio.git
+- https://github.com/jhpyle/mediawiki-pla.git
+- https://github.com/jhpyle/mTCP.git
+- https://github.com/jhpyle/p5-census-us.git
+- https://github.com/jhpyle/pdfminer.git
+- https://github.com/jhpyle/pennsylvaniacao.git
+- https://github.com/jhpyle/python-docx-template.git
+- https://github.com/jhpyle/testxsendfile.git
+- https://github.com/jhpyle/textstat.git
+,* cloning 29 repositories
+,** https://github.com/jhpyle/charts.git
+Cloning into 'charts'...
+remote: Enumerating objects: 278, done.
+remote: Counting objects: 100% (278/278), done.
+remote: Compressing objects: 100% (175/175), done.
+remote: Total 278 (delta 155), reused 216 (delta 95), pack-reused 0
+Receiving objects: 100% (278/278), 297.19 KiB | 369.00 KiB/s, done.
+Resolving deltas: 100% (155/155), done.
+#+END_EXAMPLE
+
+** Into this colour-coded structured log
+
+with a hierarchy which you can TAB to fold/unfold
 
 [[./emacs.screenshot.png]]
 

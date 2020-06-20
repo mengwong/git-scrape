@@ -11,11 +11,29 @@
 # 
 # requires npm i -g json
 
+use Cwd;
+use File::Basename;
+
+my ($cwdbase) = getcwd() =~ /([^\/]+)$/;
 my $username = shift;
+if (defined $username or not length $username) {
+  $username = $cwdbase;
+}
+
+print "* git-scrape $username\n";
 
 my @jsons;
 my $n = 1;
 my $nobreak = 0;
+
+# maybe we are already in the relevant directory
+unless ($cwdbase eq $username) {
+  print "mkdir $username; cd $username;\n";
+  mkdir $username;
+  chdir $username;
+} else {
+  print "already in $username/\n";
+}
 
 print "* what repositories does $username have?\n";
 
@@ -30,24 +48,25 @@ do {
 while ($nobreak);
 
 print "** $username has " . @jsons . " repositories\n";
-print @jsons;
-
-mkdir $username;
-chdir $username;
-
-open (REPOS, ">repos.txt");
-print REPOS @jsons;
-close REPOS;
+print "- $_" for @jsons;
 
 print "* cloning " . @jsons . " repositories\n";
 
 for my $repo (@jsons) {
   chomp $repo;
   print "** $repo\n";
-  system("git clone $repo");
+  # clone or pull?
+  my ($basename) = $repo =~ /([^\/]+)\.git$/;
+  if (-d $basename) {
+    print "git pull\n";
+    system("cd $basename; git pull");
+  } else {
+    system("git clone $repo");
+  }
 }
 
-print "\n* done!\nin future,\n\n    cd $username\n    git-multi-repos\n"
+print "\n* done!\nin future, repeat the command to pull\n";
+
     
 
 
