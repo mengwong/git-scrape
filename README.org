@@ -1,18 +1,22 @@
-#+TITLE: Org-Mode as a Logging Target
+#+TITLE: HOWTO Log To Org-Mode
 
 Programmers who like to sprinkle /printf/ statements throughout their programs should judiciously prefix output lines with hierarchical asterisks; this makes your STDERR ingestible by emacs org-mode and your logs much more accessible.
 
-Audience: (Systems) programmers who use Emacs and Org-Mode.
+** Audience
 
-I found myself writing a simple Github scraper in Perl. (Yes, I'm that old.)
+(Systems) programmers who use Emacs and Org-Mode.
 
-Given a username, the script first queries the Github API for the URLs their repositories.
+** Background
+
+I found myself writing a simple Github scraper in Perl.
+
+Given a username, the script first queries the Github API for the URLs of their repositories.
 
 Then the script runs ~git clone~ for each repository.
 
 If you're the type of programmer who has a copious "printf debugging" style, you know that this is the sort of script that could produce reams of logging output.
 
-How to manage the mess?
+** How to manage the mess of logs?
 
 Use org-mode as a logging target!
 
@@ -23,6 +27,12 @@ Tee your STDOUT/STDERR to a ~log.org~ output file.
 Then open the log file in Emacs and use TAB to fold and unfold.
 
 It's magic.
+
+** Usage
+
+#+begin_src text
+$ git-clone username 2>&1 | tee username.org
+#+end_src
 
 [[./emacs.screenshot.png]]
 
