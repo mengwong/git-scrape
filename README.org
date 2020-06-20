@@ -1,5 +1,9 @@
 #+TITLE: HOWTO Log To Org-Mode
 
+What if your logs looked like this?
+
+[[./emacs.screenshot.png]]
+
 If you sprinkle /printf/ statements throughout your scripts, prefix output lines with asterisks; this makes your logs structured and suitable for opening in emacs org-mode.
 
 ** Audience
