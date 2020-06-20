@@ -8,9 +8,9 @@ If you sprinkle /printf/ statements throughout your scripts, prefix output lines
 
 ** Audience
 
-(Systems) programmers who use Emacs and Org-Mode.
+Programmers who use Emacs and Org-Mode.
 
-** Example
+** Example: Scraping Github
 
 I wrote a simple Github scraper in Perl.
 
@@ -40,7 +40,7 @@ $ cd    gitusername
 $ git-scrape 2>&1 | tee gitusername.org
 #+end_src
 
-** It turns this kind of noise
+** It turns this kind of noise ...
 
 #+BEGIN_EXAMPLE
 20200620-14:36:49 mengwong@venice4:~/src% mkdir jhpyle
@@ -92,9 +92,10 @@ Receiving objects: 100% (278/278), 297.19 KiB | 369.00 KiB/s, done.
 Resolving deltas: 100% (155/155), done.
 #+END_EXAMPLE
 
-** Into this colour-coded structured log
+** ... into this colour-coded structured log
 
 with a hierarchy which you can TAB to fold/unfold
 
 [[./emacs.screenshot.png]]
 
+You can watch the logs grow in realtime if you turn on ~M-x auto-revert-mode` and move your cursor to the end of the file.
