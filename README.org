@@ -4,7 +4,7 @@ What if your logs looked like this?
 
 [[./emacs.screenshot.png]]
 
-If you sprinkle /printf/ statements throughout your scripts, prefix output lines with asterisks; this makes your logs structured and suitable for opening in emacs org-mode.
+If you sprinkle /printf/ statements throughout your scripts, prefix output lines with asterisks. This adds lightweight structure to your log levels, and makes your log files suitable for opening in emacs org-mode.
 
 ** Audience
 
@@ -101,3 +101,8 @@ with a hierarchy which you can TAB to fold/unfold
 [[./emacs.screenshot.png]]
 
 You can watch the logs grow in realtime if you turn on ~M-x auto-revert-mode~ and move your cursor to the end of the file.
+
+** See Also
+
+This is a featherweight form of structured logging, sort of a substitute for log levels. For more on real structured logging (think JSON output instead of throwaway mutterings) see, e.g., https://engineering.grab.com/structured-logging
+
