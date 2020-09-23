@@ -102,6 +102,13 @@ with a hierarchy which you can TAB to fold/unfold
 
 You can watch the logs grow in realtime if you turn on ~M-x auto-revert-mode~ and move your cursor to the end of the file.
 
+** to auto-open a particular section upon opening the file, try:
+:PROPERTIES:
+:VISIBILITY: all
+:END:
+
+print(":PROPERTIES:\n:VISIBILITY: all\n:END:");
+
 ** See Also
 
 This is a featherweight form of structured logging, sort of a substitute for log levels. For more on real structured logging (think JSON output instead of throwaway mutterings) see, e.g., https://engineering.grab.com/structured-logging
